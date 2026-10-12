@@ -10,14 +10,13 @@ WORKDIR /app
 
 # Copy package-related files and install dependencies
 COPY tsconfig.json package.json yarn.lock* .yarnrc.yml ./
-COPY .yarn/ ./.yarn
 
 # Set working directory to frontend and copy package files
 WORKDIR /app/frontend
 COPY ./frontend/package*.json /app/frontend/
 
 # Install frontend dependencies and build the frontend
-RUN yarn workspaces focus frontend
+RUN yarn install --frozen-lockfile
 COPY ./frontend /app/frontend/
 RUN yarn build
 
@@ -31,14 +30,13 @@ WORKDIR /app
 
 # Copy package-related files and install dependencies
 COPY package.json yarn.lock* .yarnrc.yml ./
-COPY .yarn/ ./.yarn
 
 # Set working directory to backend and copy package files
 WORKDIR /app/backend
 COPY ./backend/package*.json /app/backend/
 
 # Install backend dependencies
-RUN yarn workspaces focus --production backend && yarn cache clean
+RUN yarn install --production --frozen-lockfile && yarn cache clean
 
 # Copy the backend source files
 COPY ./backend /app/backend
