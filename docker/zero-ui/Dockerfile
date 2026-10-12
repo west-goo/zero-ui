@@ -3,14 +3,18 @@ FROM --platform=$BUILDPLATFORM node:lts-alpine AS frontend-build
 ENV GENERATE_SOURCEMAP=false
 RUN corepack enable && mkdir -p /app/frontend
 WORKDIR /app
-COPY tsconfig.json package.json yarn.lock* .yarnrc.yml ./frontend/package*.json ./frontend/
+COPY tsconfig.json package.json yarn.lock* .yarnrc.yml ./
+WORKDIR /app/frontend
+COPY ./frontend/package*.json ./
 RUN yarn workspaces focus frontend && yarn build && rm -rf node_modules
 
 # Stage 2: Build backend
 FROM node:lts-alpine AS backend-build
 RUN corepack enable && mkdir -p /app/backend
 WORKDIR /app
-COPY package.json yarn.lock* .yarnrc.yml ./backend/package*.json ./backend/
+COPY package.json yarn.lock* .yarnrc.yml ./
+WORKDIR /app/backend
+COPY ./backend/package*.json ./
 RUN yarn workspaces focus --production backend && yarn cache clean
 COPY ./backend .
 
