@@ -6,7 +6,9 @@ WORKDIR /app
 COPY tsconfig.json package.json yarn.lock* .yarnrc.yml ./
 WORKDIR /app/frontend
 COPY ./frontend/package*.json ./
-RUN yarn workspaces focus frontend && yarn build && rm -rf node_modules
+RUN yarn workspaces focus frontend
+COPY ./frontend .
+RUN yarn build && rm -rf node_modules
 
 # Stage 2: Build backend
 FROM node:lts-alpine AS backend-build
