@@ -1,5 +1,9 @@
 [
   {
+    "code": "zh_CN",
+    "name": "中文"
+  }
+  {
     "code": "en",
     "name": "English"
   },
@@ -11,8 +15,4 @@
     "code": "ru-RU",
     "name": "Русский"
   },
-  {
-    "code": "zh_CN",
-    "name": "中文"
-  }
 ]
