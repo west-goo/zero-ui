@@ -1,14 +1,6 @@
 [
   {
-    "code": "en",
-    "name": "English"
-  },
-  {
-    "code": "es-ES",
-    "name": "Español"
-  },
-  {
-    "code": "ru-RU",
-    "name": "Русский"
+    "code": "zh-CN",
+    "name": "中文"
   }
 ]
